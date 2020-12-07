@@ -1,4 +1,4 @@
-# Scrapy settings for imdb project
+# Scrapy settings for ups project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'imdb'
+BOT_NAME = 'ups'
 
-SPIDER_MODULES = ['imdb.spiders']
-NEWSPIDER_MODULE = 'imdb.spiders'
+SPIDER_MODULES = ['ups.spiders']
+NEWSPIDER_MODULE = 'ups.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'imdb (+http://www.yourdomain.com)'
+#USER_AGENT = 'ups (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'imdb.middlewares.ImdbSpiderMiddleware': 543,
+#    'ups.middlewares.UpsSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'imdb.middlewares.ImdbDownloaderMiddleware': 543,
+#    'ups.middlewares.UpsDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'imdb.pipelines.ImdbPipeline': 300,
+#    'ups.pipelines.UpsPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
