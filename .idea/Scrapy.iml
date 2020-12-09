@@ -7,5 +7,7 @@
     <orderEntry type="jdk" jdkName="Python 3.8 (env3.8)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="BasicWebScrapeing" />
+    <orderEntry type="module" module-name="AHD_GPM" />
+    <orderEntry type="module" module-name="GPM_new" />
   </component>
 </module>

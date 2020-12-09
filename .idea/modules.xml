@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AHD_GPM/.idea/AHD_GPM.iml" filepath="$PROJECT_DIR$/../AHD_GPM/.idea/AHD_GPM.iml" />
       <module fileurl="file://$PROJECT_DIR$/../BasicWebScrapeing/.idea/BasicWebScrapeing.iml" filepath="$PROJECT_DIR$/../BasicWebScrapeing/.idea/BasicWebScrapeing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../GPM_new_v16/.idea/GPM_new.iml" filepath="$PROJECT_DIR$/../GPM_new_v16/.idea/GPM_new.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Scrapy.iml" filepath="$PROJECT_DIR$/.idea/Scrapy.iml" />
     </modules>
   </component>
