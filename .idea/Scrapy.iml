@@ -9,5 +9,7 @@
     <orderEntry type="module" module-name="BasicWebScrapeing" />
     <orderEntry type="module" module-name="AHD_GPM" />
     <orderEntry type="module" module-name="GPM_new" />
+    <orderEntry type="module" module-name="TCPL_PSR_Analysis" />
+    <orderEntry type="module" module-name="Best-on-Python" />
   </component>
 </module>
