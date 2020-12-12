@@ -4,6 +4,7 @@ import pandas as pd
 
 
 # Today 02-12-2020
+# Last update: 09-12-2020
 class Review0212Spider(scrapy.Spider):
     name = 'rank'
     allowed_domains = ['www.amazon.com']
@@ -13,6 +14,7 @@ class Review0212Spider(scrapy.Spider):
         excel_data = pd.read_excel('asin2.xlsx')
         for asin in excel_data['ASIN'].tolist():
             link = '/dp/' + asin + '/?th=1'
+            print(link)
 
             yield response.follow(url=link, callback=self.parse_getreview, meta={'asin': asin})
 
