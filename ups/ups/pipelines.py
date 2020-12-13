@@ -32,8 +32,8 @@ class upsPipeline(object):
                                 location VARCHAR(30),
                                 date VARCHAR(50),
                                 time VARCHAR(50)
-                                ) 
-                                
+                                )
+
                             ''')
             self.connection.commit()
         except:

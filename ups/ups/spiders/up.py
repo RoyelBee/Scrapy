@@ -17,14 +17,14 @@ class UpSpider(scrapy.Spider):
     def parse(self, response):
         link = 'http://ot.michaelelectronics2.com/Cglobal/getTracking/2020-12-11T00:00/2020-12-12T00:00/'
         res = requests.get(link).json()
-        # ups_tracking_id = []
-        # for val in res:
-        #     if val['vendor'] == 'UPS':
-        #         ups_tracking_id.append(val['tracking'])
-        # print(ups_tracking_id)
+        ups_tracking_id = []
+        for val in res:
+            if val['vendor'] == 'UPS':
+                ups_tracking_id.append(val['tracking'])
+        print(ups_tracking_id)
 
 
-        ups_tracking_id = ['1Z7A801T3535584776']
+        # ups_tracking_id = ['1Z80E9E41214799711']
 
         for id in ups_tracking_id:
             print('\n', id, '\n')
@@ -39,7 +39,7 @@ class UpSpider(scrapy.Spider):
             time.sleep(20)
             search_input = driver.find_element_by_id("stApp_trackingNumber")
             search_input.send_keys(id)
-
+            time.sleep(5)
             search_btn = driver.find_element_by_id("stApp_btnTrack")
             search_btn.click()
 
@@ -48,24 +48,43 @@ class UpSpider(scrapy.Spider):
 
 
             if status == 'Delivered':
-                date = driver.find_element_by_id('stApp_deliveredDate')
-                day = driver.find_element_by_id('stApp_deliveredDay')
-                timef = driver.find_element_by_id('stApp_eodDate')
+                date = driver.find_element_by_id('stApp_deliveredDate').text
+                day = driver.find_element_by_id('stApp_deliveredDay').text
+                timef = driver.find_element_by_id('stApp_eodDate').text
 
                 deliverState = driver.find_element_by_id('stApp_txtAddress')
                 deliverCountry = driver.find_element_by_id('stApp_txtCountry')
-                leftat = driver.find_element_by_id('stApp_txtLeftAt')
-                Received = driver.find_element_by_id('stApp_txtReceivedBy')
+                leftat = driver.find_element_by_id('stApp_txtLeftAt').text
+                Received = driver.find_element_by_id('stApp_txtReceivedBy').text
+                location = deliverState.text + deliverCountry.text
+
+            if status == 'In Transit':
+                date = driver.find_element_by_id('stApp_ShpmtProg_LVP_milestone_1_date_1').text
+                timef = driver.find_element_by_id('stApp_ShpmtProg_LVP_milestone_2_time_1').text
+                location = driver.find_element_by_xpath('//*[@id="stApp_ShpmtProg_LVP_milestone_1_location_1"]/span').text
+                day = ''
+                leftat = ''
+                Received = ''
+
+            if status == 'Shipment Ready for UPS':
+                date = driver.find_element_by_id('stApp_ShpmtProg_LVP_milestone_1_date_1').text
+                timef = driver.find_element_by_id('stApp_ShpmtProg_LVP_milestone_2_time_1').text
+                location = driver.find_element_by_xpath(
+                    '//*[@id="stApp_ShpmtProg_LVP_milestone_1_location_1"]/span').text
+                day = ''
+                leftat = ''
+                Received = ''
+
 
             yield {
-                'tracking': "'" + id,
+                'tracking': id,
                 'status': status,
-                'date': date.text,
-                'day': day.text,
-                'time': timef.text,
-                'location': deliverState.text + deliverCountry.text,
-                'left_at': leftat.text,
-                'receiver': Received.text
+                'date': date,
+                'day': day,
+                'time': timef,
+                'location': location,
+                'left_at': leftat,
+                'receiver': Received
             }
             driver.close()
 
