@@ -44,16 +44,16 @@ class upsPipeline(object):
 
     def process_item(self, item, spider):
         self.c.execute(""" insert into tbl_ot_tracking_detail (tracking,status,left_at, receiver,day, location, date,time)
-        values (%s,%s,%s,%s,%s,%s,%s,%s)""", (
-            item.get('tracking'),
-            item.get('status'),
-            item.get('left_at'),
-            item.get('receiver'),
-            item.get('day'),
-            item.get('location'),
-            item.get('date'),
-            item.get('time')
-        )
+                        values (%s,%s,%s,%s,%s,%s,%s,%s)""", (
+                            item.get('tracking'),
+                            item.get('status'),
+                            item.get('left_at'),
+                            item.get('receiver'),
+                            item.get('day'),
+                            item.get('location'),
+                            item.get('date'),
+                            item.get('time')
+                            )
                        )
         self.connection.commit()
         return item
