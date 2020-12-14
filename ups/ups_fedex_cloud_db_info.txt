@@ -1,0 +1,9 @@
+Link: http://44.236.114.81/phpMyAdmin/index.php
+host: 44.236.114.81
+user name: order_tracking
+password: ot@Ndi@OT251
+Datbse: order_tracking
+
+Tracking ID comes from: tbl_ot_orders  
+Tracking Details should be insert: tbl_ot_tracking_detail 
+is_delivered in tbl_ot_orders should be set to 1 if you find delivered status for that tracking
