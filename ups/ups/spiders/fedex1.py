@@ -16,17 +16,16 @@ class UpSpider(scrapy.Spider):
     start_urls = ['http://fedex.com/']
 
     def parse(self, response):
-        # link = 'http://ot.michaelelectronics2.com/Cglobal/getTracking/2020-12-11T00:00/2020-12-12T00:00/'
-        # res = requests.get(link).json()
-        # fed_tracking_id = []
-        # for val in res:
-        #     if val['vendor'] == 'FedEx':
-        #         fed_tracking_id.append(val['tracking'])
-        # print(fed_tracking_id)
-
+        link = 'http://ot.michaelelectronics2.com/Cglobal/getTracking/1'
+        res = requests.get(link).json()
+        fed_tracking_id = []
+        for val in res:
+            if val['vendor'] == 'FedEx':
+                fed_tracking_id.append(val['tracking'])
+        print(fed_tracking_id)
 
         # ids = ['914024657736', '914024657780']
-        fed_tracking_id = ['914024657736']
+        # fed_tracking_id = ['914024657736']
 
         for id in fed_tracking_id:
             print('Tracking id: ', id, '\n')
@@ -40,7 +39,7 @@ class UpSpider(scrapy.Spider):
             driver.get("https://www.fedex.com/apps/fedextrack/?action=track")
 
             import time
-            time.sleep(30)
+            time.sleep(20)
 
             search_input = driver.find_element_by_xpath('//*[@id="track_inbox_track_numbers_area"]')
             search_input.send_keys(id)
@@ -62,14 +61,14 @@ class UpSpider(scrapy.Spider):
                     0]
                 t1 = driver.find_element_by_xpath(
                     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[1]/div/div[2]/h1/div[2]').text.split()[
-                        3]
+                    3]
                 t2 = driver.find_element_by_xpath(
                     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[1]/div/div[2]/h1/div[2]').text.split()[
                     4]
                 times = t1 + ' ' + t2
                 dates = driver.find_element_by_xpath(
                     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[1]/div/div[2]/h1/div[2]').text.split()[
-                        1]
+                    1]
                 signed_by = driver.find_element_by_xpath(
                     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[1]/div/div[2]/div[5]/div/h3[3]').text.split()[
                     3]
@@ -79,17 +78,6 @@ class UpSpider(scrapy.Spider):
                 froms = driver.find_element_by_xpath(
                     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[1]/div/div[6]/div[1]/div/p[6]').text
 
-                # shipmant_tab = driver.find_element_by_xpath(
-                #     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[2]/div[1]/div[5]/div/ul/li[2]/a')
-                # shipmant_tab.click()
-                #
-                # import time
-                # time.sleep(2)
-                # all_text = driver.find_element_by_xpath(
-                #     '//div[@class="dp_facts_area wtrk_printable"]').text
-                #
-                # weight = driver.find_element_by_xpath(
-                #     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[2]/div[1]/div[8]/ul/li[3]/span').text
 
                 print("End\n\n")
                 time.sleep(2)
@@ -99,25 +87,24 @@ class UpSpider(scrapy.Spider):
             pending = driver.find_element_by_xpath(
                 '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[1]/div/div[2]/h1/div[2]').text
 
-
             if pending == 'Pending':
                 status = pending
-                travel_history = driver.find_element_by_xpath(
+                date_time = driver.find_element_by_xpath(
                     '//*[@id="container"]/div/div/div[2]/div/div[1]/div[2]/div[3]/div/div[3]/div/div[2]/div[1]/div[6]/div/div[3]/ul/li/div[1]').text
+
+                day = date_time.split()[0]
+                dates = date_time.split()[2]
                 signed_by = ''
-                day = ''
                 times = ''
                 to = ''
                 froms = ''
-
-                dates = ''
 
             print('\n')
 
             yield {
                 'tracking': str(id),
                 'status': status,
-                'day' : day,
+                'day': day,
                 'date': dates,
                 'time': times,
                 'left_at': froms,
