@@ -9,6 +9,7 @@ import pandas as pd
 import requests
 import json
 import time
+import mysql.connector
 
 
 class UpSpider(scrapy.Spider):
@@ -16,7 +17,17 @@ class UpSpider(scrapy.Spider):
     allowed_domains = ['fedex.com']
     start_urls = ['http://fedex.com/']
 
+    def __init__(self):
+        self.mydb = mysql.connector.connect(
+            host="44.236.114.81",
+            user="order_tracking",
+            password="ot@Ndi@OT251",
+            database="order_tracking"
+        )
+        self.mycursor = self.mydb.cursor()
+
     def parse(self, response):
+        # # Fetch all companies tracking id from API
         link = 'http://ot.michaelelectronics2.com/Cglobal/getTracking/1'
         res = requests.get(link).json()
 
@@ -139,6 +150,73 @@ class UpSpider(scrapy.Spider):
                     Received = ''
                     location = ''
 
+            if ven['vendor'] == 'Ontrac':
+                print('Hello =', ven['vendor'], '  ID: ', ven['tracking'])
+                continue
+
+            if ven['vendor'] == 'USPS':
+                id = ven['tracking']
+                print('\n USPS ID = ', id)
+
+                chrome_options = Options()
+                chrome_options.add_argument("--headless")
+                chrome_path = which("chromedriver")
+
+                # driver = webdriver.Chrome(executable_path=chrome_path)
+                driver = webdriver.Chrome(executable_path=chrome_path)
+                driver.get("https://www.usps.com/manage/")
+                import time
+                time.sleep(5)
+                search_input = driver.find_element_by_xpath('//*[@id="track-package--input"]')
+                search_input.send_keys(id)
+                time.sleep(3)
+                search_btn = driver.find_element_by_xpath('//*[@id="track-package--form"]/div/input[2]')
+                search_btn.click()
+
+                time.sleep(15)
+                status = driver.find_element_by_xpath(
+                    '//*[@id="tracked-numbers"]/div/div/div/div/div[1]/div[2]/h2/strong').text
+                print('Status = ', status)
+
+                def listToString(s):
+                    str1 = ""
+                    for ele in s:
+                        str1 += ' ' + ele
+                    return str1
+
+                if status == 'Delivered':
+                    full_date = driver.find_element_by_xpath(
+                        '//*[@id="tracked-numbers"]/div/div/div/div/div[1]/div[2]/div/p[1]').text.split()[0:3]
+                    day = ''
+                    date = listToString(full_date)
+                    t = driver.find_element_by_xpath(
+                        '//*[@id="tracked-numbers"]/div/div/div/div/div[1]/div[2]/div/p[1]').text.split()[4:]
+                    time = listToString(t)
+
+                    location = driver.find_element_by_xpath(
+                        '//*[@id="tracked-numbers"]/div/div/div/div/div[1]/div[2]/div/p[3]').text
+                    leftat = ''
+                    Received = ''
+
+                if status == 'Status Not Available':
+                    day = ''
+                    date = ''
+                    time = ''
+                    location = ''
+                    leftat = ''
+                    Received = ''
+
+                yield {
+                    'tracking': str(id),
+                    'status': status,
+                    'date': date,
+                    'day': day,
+                    'time': time,
+                    'location': location,
+                    'left_at': leftat,
+                    'receiver': Received
+                }
+                driver.close()
 
             yield {
                 'tracking': str(id),

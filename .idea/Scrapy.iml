@@ -10,5 +10,6 @@
     <orderEntry type="module" module-name="GPM_new" />
     <orderEntry type="module" module-name="TCPL_PSR_Analysis" />
     <orderEntry type="module" module-name="Best-on-Python" />
+    <orderEntry type="module" module-name="Data-Analysis-for-Alexa-Flash-Briefing" />
   </component>
 </module>

@@ -25,7 +25,7 @@ class UpSpider(scrapy.Spider):
         print(fed_tracking_id)
 
         # ids = ['914024657736', '914024657780']
-        # fed_tracking_id = ['914024657736']
+        fed_tracking_id = ['914024657780']
 
         for id in fed_tracking_id:
             print('Tracking id: ', id, '\n')
