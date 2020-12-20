@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../AHD_GPM/.idea/AHD_GPM.iml" filepath="$PROJECT_DIR$/../AHD_GPM/.idea/AHD_GPM.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Best-on-Python/.idea/Best-on-Python.iml" filepath="$PROJECT_DIR$/../Best-on-Python/.idea/Best-on-Python.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Data-Analysis-for-Alexa-Flash-Briefing/.idea/Data-Analysis-for-Alexa-Flash-Briefing.iml" filepath="$PROJECT_DIR$/../Data-Analysis-for-Alexa-Flash-Briefing/.idea/Data-Analysis-for-Alexa-Flash-Briefing.iml" />
       <module fileurl="file://$PROJECT_DIR$/../GPM_new_v16/.idea/GPM_new.iml" filepath="$PROJECT_DIR$/../GPM_new_v16/.idea/GPM_new.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Scrapy.iml" filepath="$PROJECT_DIR$/.idea/Scrapy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TCPL_PSR_Analysis/.idea/TCPL_PSR_Analysis.iml" filepath="$PROJECT_DIR$/../TCPL_PSR_Analysis/.idea/TCPL_PSR_Analysis.iml" />
     </modules>
   </component>
 </project>
